@@ -1,0 +1,25 @@
+Legyen Ön is Informatikus:
+
+Táblák: Nehézségi fok, Nyeremények, KérdésekHelyesValaszok, Válaszok, Segítségek, KözönségSzázalék, TelefonosTipp, FelezoKetto, BeugroKerdes, ValaszSorrend, Játékosok
+
+
+Nehézségi fok: 
+
+
+
+telefonos segítség = elfelejtett jelszó/jelszó emlékezteto
+
+
+
+Hi Jack! Tegyed sorrendbe az abc elso 4 betujét!
+
+a, b
+b, c
+c, a
+d, d
+
+c,a,b,d
+
+Juj de okos vagy! Irány az Egyetem! Felvételt nyertél az SZTE Informatikus képzésére! Juhéééé!
+
+1. Kalkulus 1.   2
