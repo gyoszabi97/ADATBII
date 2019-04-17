@@ -13,8 +13,7 @@ public class UjHallgatoDialog extends JDialog implements ActionListener {
     private JPanel panel_Panel;
     private JPanel panel_inputPanel;
     private JButton button_felviszGomb;
-    
-    Adatbazis db = new Adatbazis();
+    private JTextArea eredmeny;
 
     public UjHallgatoDialog(Frame szuloAblak) {
         super(szuloAblak, "Új hallgató felvétele");
@@ -23,6 +22,7 @@ public class UjHallgatoDialog extends JDialog implements ActionListener {
 
         this.tf_nickname = new JTextField();
         this.button_felviszGomb = new JButton("Lekerdez");
+        this.eredmeny = new JTextArea();
 
         //panelek és elrendezéseik létrehozása
         this.panel_Panel = new JPanel();
@@ -36,6 +36,7 @@ public class UjHallgatoDialog extends JDialog implements ActionListener {
         //input mezők
         this.panel_inputPanel.add(new JLabel("Nickname"));
         this.panel_inputPanel.add(this.tf_nickname);
+        this.panel_inputPanel.add(eredmeny);
 
         //inputpanel a főpanelhez adása, középre
 
@@ -61,11 +62,11 @@ public class UjHallgatoDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         if(actionEvent.getSource().equals(this.button_felviszGomb)){
             String nickname = this.tf_nickname.getText();
-           
+            Adatbazis db = new Adatbazis();
             db.connectToDatabase();
-            db.hallgatotLekerdez(nickname);
-
-            this.dispose();
+            //db.hallgatotLekerdez(nickname);
+            eredmeny.setText(db.hallgatotLekerdez(nickname));
+           // this.dispose();
         }
     }
 }

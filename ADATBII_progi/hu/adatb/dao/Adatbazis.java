@@ -1,3 +1,4 @@
+    
 package hu.adatb.dao;
 
 import java.sql.Connection;
@@ -29,7 +30,7 @@ public class Adatbazis {
 
 	}
 	
-	public void hallgatotLekerdez(String nick) {
+	public String hallgatotLekerdez(String nick) {
 		
 		
 		sql = "Select * From b_Hallgato Where nickname = '"+nick+"'";
@@ -37,14 +38,15 @@ public class Adatbazis {
 		try {
 		ResultSet rs = stmt.executeQuery(sql);		
 			
-			while(rs.next()) {
-				System.out.println("Nev: "+rs.getString(1) +" Kredit: "+rs.getString(2));
-			}
+		rs.next();
+		return "Nev: "+rs.getString(1) +" Kredit: "+rs.getString(2);
+			
 			
 			
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
+			return "";
 		} 
 	}
 	
@@ -67,3 +69,4 @@ public class Adatbazis {
 	}
 
 }
+

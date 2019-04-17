@@ -7,8 +7,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import hu.adatb.dao.Adatbazis;
-
 public class InformatikusFrame extends JFrame implements ActionListener {
     private JMenu Menu_szobak;
     private JMenu Menu_hallgatok;
@@ -20,7 +18,6 @@ public class InformatikusFrame extends JFrame implements ActionListener {
     private JMenuItem menuItem_hallgato_adatok;
 
     private UjHallgatoDialog dialog_ujHallgatoDialog;
-    Adatbazis db = new Adatbazis();
 
     public InformatikusFrame(String title){
         super(title);
@@ -67,9 +64,6 @@ public class InformatikusFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
 
         if(actionEvent.getSource().equals(menuItem_lekerdezesek)){
-        	
-        	db.connectToDatabase();
-        	db.Lekerdez();
 
         }
         if(actionEvent.getSource().equals(menuItem_statisztikak)){
