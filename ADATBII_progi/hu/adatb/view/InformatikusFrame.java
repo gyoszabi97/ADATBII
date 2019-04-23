@@ -1,4 +1,6 @@
 package hu.adatb.view;
+import hu.adatb.dao.Adatbazis;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,6 +20,9 @@ public class InformatikusFrame extends JFrame implements ActionListener {
     private JMenuItem menuItem_hallgato_adatok;
 
     private UjHallgatoDialog dialog_ujHallgatoDialog;
+    private HallgatoAdataiDialog dialog_hallgatoAdataiDialog;
+
+    private Adatbazis adatbazis;
 
     public InformatikusFrame(String title){
         super(title);
@@ -48,6 +53,12 @@ public class InformatikusFrame extends JFrame implements ActionListener {
 
         this.dialog_ujHallgatoDialog = new UjHallgatoDialog(this);
         this.dialog_ujHallgatoDialog.setVisible(false);
+        this.dialog_hallgatoAdataiDialog = new HallgatoAdataiDialog(this);
+        this.dialog_hallgatoAdataiDialog.setVisible(false);
+
+        this.adatbazis = new Adatbazis();
+        adatbazis.connectToDatabase();
+
 
         this.menuItem_lekerdezesek.addActionListener(this);
         this.menuItem_statisztikak.addActionListener(this);
@@ -70,13 +81,14 @@ public class InformatikusFrame extends JFrame implements ActionListener {
 
         }
         if(actionEvent.getSource().equals(menuItem_uj_hallgato)){
-
+            this.dialog_ujHallgatoDialog.elokeszit();
+            this.dialog_ujHallgatoDialog.setVisible(true);
         	
         	
         }
         if(actionEvent.getSource().equals(menuItem_hallgato_adatok)){
-            this.dialog_ujHallgatoDialog.elokeszit();
-            this.dialog_ujHallgatoDialog.setVisible(true);
+            this.dialog_hallgatoAdataiDialog.elokeszit();
+            this.dialog_hallgatoAdataiDialog.setVisible(true);
 
         }
     }
