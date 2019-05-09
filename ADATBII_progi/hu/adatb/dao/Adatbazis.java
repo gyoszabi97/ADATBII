@@ -31,24 +31,27 @@ public class Adatbazis {
 
 	}
 	
-	public void hallgatotLekerdez(String nick) {
+	public String hallgatotLekerdez(String nick) {
 		
 		
 		//sql = "Select * From b_Hallgato Where nickname = '"+nick+"'";
 		sql = "select * from b_Hallgato";
 		System.out.println(sql);
 		try {
-		ResultSet rs = stmt.executeQuery(sql);		
-			rs.next();
+		ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				System.out.println("asd");
+				rs.getString(2);
+				System.out.println(rs.getString(2));
+				return 	rs.getString(2);
 			}
 			
 			
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
-		} 
+		}
+
+		return "";
 		
 	}
 
