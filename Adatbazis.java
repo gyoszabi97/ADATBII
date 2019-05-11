@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import oracle.jdbc.pool.OracleDataSource;
 
@@ -279,6 +280,85 @@ public class Adatbazis {
 		
 	}
 	
-	//modify, parameters: primary key, value(s) to modify
+	//TODO:modify, parameters: primary key, value(s) to modify
+	
+	public void updateRow() {
+		
+	}
+	
+	//get question: question,answers,helps. Difficulty
+	List<String> kerdesek = new ArrayList<String>();
+	public void getQuestion(String difficulty) throws SQLException {
+		
+		//difficulty = szoba
+		
+		Random r = new Random();
+		int temakor;
+		int kerdes;
+		
+		switch(difficulty) {
+		
+		case("Elsos"):
+			temakor = r.nextInt(3)+1;
+			sql = "select kerdesid from b_kerdesek where temakorid = "+temakor;
+			System.out.println(sql);
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				kerdesek.add(rs.getString(1));
+			}
+			
+			kerdes = r.nextInt(kerdesek.size())+1;
+			
+			sql = "select b_kerdesek.kerdes,b_lehetsegesvalaszok.valasza,b_lehetsegesvalaszok.valaszb,b_lehetsegesvalaszok.valaszc,b_lehetsegesvalaszok.valaszd,b_sugo.sugas,b_puska.loszer" + 
+					" from b_kerdesek,b_puska,b_lehetsegesvalaszok,b_helyesvalaszok,b_sugo" + 
+					" where b_kerdesek.kerdesid = "+ kerdes + 
+					" and b_kerdesek.kerdesid = b_puska.kerdesid " + 
+					" and b_kerdesek.kerdesid = b_lehetsegesvalaszok.kerdesid" + 
+					" and b_kerdesek.kerdesid = b_helyesvalaszok.kerdesid" + 
+					" and b_kerdesek.kerdesid = b_sugo.kerdesid";
+			
+
+			
+			System.out.println(sql);
+			
+			System.out.println("---------------------------------------");
+			System.out.println("TEMAKOR: "+ temakor + " KERDES: "+ kerdes);
+			System.out.println("---------------------------------------");
+			
+			rs = stmt.executeQuery(sql);
+			rs.next();
+			System.out.println(rs.getString(1)+"\n A: "+rs.getString(2)+"\n B: "+rs.getString(3)+"\n C: "+rs.getString(4)+"\n D: "+rs.getString(5)+"\n Help1: "+rs.getString(6)+"\n Help2: "+ rs.getString(7));
+			break;
+		
+		case("Masodikos"):
+			temakor = r.nextInt(7)+1;
+			
+			
+			break;
+		
+		case("Harmadikos"):
+			temakor = r.nextInt(10)+1;
+			
+			
+			break;
+			
+		default:
+			
+			temakor = r.nextInt(10)+1;
+			break;
+		
+		}
+	}
+	
+	//TODO:get answer parameterben eleg lesz a betujel
+	
+	public void getAnswer() {
+		
+		
+	}
+	
+	
+	
+	
 
 }
