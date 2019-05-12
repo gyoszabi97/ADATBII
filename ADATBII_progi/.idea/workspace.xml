@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0707501-9c04-4f84-9363-cd9ec71a7c8e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/hu/adatb/view/Dialogs/HallgatoTabla/HallgatoLekerdezesDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/ojdbc14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/ojdbc14.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hu/adatb/dao/Adatbazis.java" beforeDir="false" afterPath="$PROJECT_DIR$/hu/adatb/dao/Adatbazis.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hu/adatb/view/HallgatoAdataiDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/hu/adatb/view/Dialogs/HallgatoAdataiDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hu/adatb/view/InformatikusFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/hu/adatb/view/InformatikusFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hu/adatb/view/Lekerdezes2Dialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/hu/adatb/view/Dialogs/Lekerdezes2Dialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hu/adatb/view/TablakDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hu/adatb/view/UjHallgatoDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/hu/adatb/view/Dialogs/UjHallgatoDialog.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hu/adatb/view/UjHallgatoDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/hu/adatb/view/Dialogs/UjHallgatoDialog.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -204,7 +195,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Designer" />
