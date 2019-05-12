@@ -65,7 +65,7 @@ public class Adatbazis {
 			switch (table) {
 			case "b_hallgato":
 
-				while (rs.next()) {					
+				while (rs.next()) {
 					row.add(rs.getString(1));
 					row.add(rs.getString(2));
 					row.add(rs.getString(3));
@@ -163,10 +163,10 @@ public class Adatbazis {
 			System.out.println(sql);
 			break;
 		case "b_kerdesek":
-			
-			//kerdeseket kerdesid alapjan torolsz, mert nincs neve
-			//deleting children from other tables is obligatory
-			
+
+			// kerdeseket kerdesid alapjan torolsz, mert nincs neve
+			// deleting children from other tables is obligatory
+
 			sql = "delete from b_sugo where kerdesid = " + name;
 			stmt.executeQuery(sql);
 
@@ -178,11 +178,11 @@ public class Adatbazis {
 
 			sql = "delete from b_helyesvalaszok where kerdesid = " + name;
 			stmt.executeQuery(sql);
-			
+
 			System.out.println("deleted all children");
 
 			sql = "delete From " + table + " Where kerdesid = " + name;
-			
+
 			break;
 		case "b_szoba":
 
@@ -191,18 +191,17 @@ public class Adatbazis {
 			break;
 		case "b_tantargyak":
 
-			sql =  "select temakorid from b_tantargyak where targyneve = '" +name+"'";
+			sql = "select temakorid from b_tantargyak where targyneve = '" + name + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			rs.next();
 			String tmp = rs.getString(1);
-			
-			
-			sql="delete from b_kreditnyeremeny where temakorid = "+tmp;
-			
+
+			sql = "delete from b_kreditnyeremeny where temakorid = " + tmp;
+
 			System.out.println(sql);
 			stmt.executeQuery(sql);
-					
-			sql = "delete From " + table + " " + "Where targyneve = '" + name + "'";		
+
+			sql = "delete From " + table + " " + "Where targyneve = '" + name + "'";
 
 			break;
 		default:
@@ -215,150 +214,415 @@ public class Adatbazis {
 		stmt.executeQuery(sql);
 
 	}
-	
-	//add hallgato,kerdes,szoba,tantargy
-	
-	public void addRecord(String table, String...strings ) throws SQLException {
-		
-		switch(table) {
-		case("b_hallgato"):
-			//	nickname, szoba
-			sql= "insert into " + table + " values( '"+ strings[0] +"',"+ 0 +",'"+ strings[1]+"')";
+
+	// add hallgato,kerdes,szoba,tantargy
+
+	public void addRecord(String table, String... strings) throws SQLException {
+
+		switch (table) {
+		case ("b_hallgato"):
+			// nickname, szoba
+			sql = "insert into " + table + " values( '" + strings[0] + "'," + 0 + ",'" + strings[1] + "')";
 			System.out.println(sql);
 			stmt.executeQuery(sql);
 			break;
-	
-		case("b_kerdesek"):
-			
-			/*SORREND:
-			 * kerdesid, temakorid, kerdes, [0,1,2]
-			 * lvid = kerdesid, valasz a-b-c-d, [0,3,4,5,6]
-			 * hvid = kerdesid, betujel, helyesvalasz [0,7,8]
-			 * sugo, [0,0,9]
-			 * puska, [0,0,10]
+
+		case ("b_kerdesek"):
+
+			/*
+			 * SORREND: kerdesid, temakorid, kerdes, [0,1,2] lvid = kerdesid, valasz
+			 * a-b-c-d, [0,3,4,5,6] hvid = kerdesid, betujel, helyesvalasz [0,7,8] sugo,
+			 * [0,0,9] puska, [0,0,10]
 			 */
-			
-			
-			sql = "insert into " + table +" values("+strings[0]+","+strings[1]+",'"+strings[2]+"')";
-			stmt.executeQuery(sql);
-			
-			sql = "insert into b_lehetsegesvalaszok values("+strings[0]+","+strings[0]+",'"+strings[3]+"','"+strings[4]+"','"+strings[5]+"','"+strings[6]+"')";
-			stmt.executeQuery(sql);
-			
-			sql = "insert into b_helyesvalaszok values("+strings[0]+","+strings[0]+",'"+strings[7]+"','"+strings[8]+"')";
-			stmt.executeQuery(sql);
-			
-			sql = "insert into b_sugo values("+strings[0]+","+strings[0]+",'"+strings[9]+"')";
+
+			sql = "insert into " + table + " values(" + strings[0] + "," + strings[1] + ",'" + strings[2] + 0 + "')";
 			stmt.executeQuery(sql);
 
-			sql = "insert into b_puska values("+strings[0]+","+strings[0]+",'"+strings[10]+"')";
+			sql = "insert into b_lehetsegesvalaszok values(" + strings[0] + "," + strings[0] + ",'" + strings[3] + "','"
+					+ strings[4] + "','" + strings[5] + "','" + strings[6] + "')";
+			stmt.executeQuery(sql);
+
+			sql = "insert into b_helyesvalaszok values(" + strings[0] + "," + strings[0] + ",'" + strings[7] + "','"
+					+ strings[8] + "')";
+			stmt.executeQuery(sql);
+
+			sql = "insert into b_sugo values(" + strings[0] + "," + strings[0] + ",'" + strings[9] + "')";
+			stmt.executeQuery(sql);
+
+			sql = "insert into b_puska values(" + strings[0] + "," + strings[0] + ",'" + strings[10] + "')";
 			stmt.executeQuery(sql);
 			break;
-		
-		case("b_szoba"):
-			//szobanev
-			sql= "insert into " + table + " values( '"+ strings[0]+"'," + 0 +")";
+
+		case ("b_szoba"):
+			// szobanev
+			sql = "insert into " + table + " values( '" + strings[0] + "'," + 0 + ")";
 			System.out.println(sql);
 			stmt.executeQuery(sql);
 			break;
-		
-		case("b_tantargyak"):
-			//temakorid, nev, kreditertek
-			sql= "insert into " + table + " values( "+ strings[0]+ ",'" +strings[1] +"')";
+
+		case ("b_tantargyak"):
+			// temakorid, nev, kreditertek
+			sql = "insert into " + table + " values( " + strings[0] + ",'" + strings[1] + "')";
 			System.out.println(sql);
 			stmt.executeQuery(sql);
-			
-			sql="insert into b_kreditnyeremeny values("+strings[0]+","+strings[2]+")";
+
+			sql = "insert into b_kreditnyeremeny values(" + strings[0] + "," + strings[2] + ")";
 			stmt.executeQuery(sql);
-			
+
 			break;
-		
+
 		default:
 			System.out.println("ilyen tablat nem lehet letrehozni");
 			return;
 		}
-		
+
 	}
-	
-	//TODO:modify, parameters: primary key, value(s) to modify
-	
+
+	// TODO:modify, parameters: primary key, value(s) to modify
+
 	public void updateRow() {
-		
+
 	}
-	
-	//get question: question,answers,helps. Difficulty
+
+	// get question: question,answers,helps. Difficulty
 	List<String> kerdesek = new ArrayList<String>();
-	public void getQuestion(String difficulty) throws SQLException {
-		
-		//difficulty = szoba
-		
+
+	public void getQuestionByRoomAsDifficulty(String difficulty) throws SQLException {
+
+		// difficulty = szoba
+
 		Random r = new Random();
 		int temakor;
 		int kerdes;
-		
-		switch(difficulty) {
-		
-		case("Elsos"):
-			temakor = r.nextInt(3)+1;
-			sql = "select kerdesid from b_kerdesek where temakorid = "+temakor;
+		ResultSet rs;
+		int high;  //random szamgeneralas low es high kozott
+		int low;
+
+		switch (difficulty) {
+
+		case ("Elsos"):
+			temakor = r.nextInt(3) + 1;
+			sql = "select kerdesid from b_kerdesek where temakorid = " + temakor;
 			System.out.println(sql);
-			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next()) {
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
 				kerdesek.add(rs.getString(1));
 			}
-			
-			kerdes = r.nextInt(kerdesek.size())+1;
-			
-			sql = "select b_kerdesek.kerdes,b_lehetsegesvalaszok.valasza,b_lehetsegesvalaszok.valaszb,b_lehetsegesvalaszok.valaszc,b_lehetsegesvalaszok.valaszd,b_sugo.sugas,b_puska.loszer" + 
-					" from b_kerdesek,b_puska,b_lehetsegesvalaszok,b_helyesvalaszok,b_sugo" + 
-					" where b_kerdesek.kerdesid = "+ kerdes + 
-					" and b_kerdesek.kerdesid = b_puska.kerdesid " + 
-					" and b_kerdesek.kerdesid = b_lehetsegesvalaszok.kerdesid" + 
-					" and b_kerdesek.kerdesid = b_helyesvalaszok.kerdesid" + 
-					" and b_kerdesek.kerdesid = b_sugo.kerdesid";
-			
 
-			
+			high = Integer.parseInt(kerdesek.get(kerdesek.size() - 1));
+			low = Integer.parseInt(kerdesek.get(0));
+
+			System.out.println(high + " || " + low);
+
+			kerdes = r.nextInt(high - low) + low;
+
+			sql = "select b_kerdesek.kerdes,b_lehetsegesvalaszok.valasza,b_lehetsegesvalaszok.valaszb,b_lehetsegesvalaszok.valaszc,b_lehetsegesvalaszok.valaszd,b_sugo.sugas,b_puska.loszer"
+					+ " from b_kerdesek,b_puska,b_lehetsegesvalaszok,b_helyesvalaszok,b_sugo"
+					+ " where b_kerdesek.kerdesid = " + kerdes + " and b_kerdesek.kerdesid = b_puska.kerdesid "
+					+ " and b_kerdesek.kerdesid = b_lehetsegesvalaszok.kerdesid"
+					+ " and b_kerdesek.kerdesid = b_helyesvalaszok.kerdesid"
+					+ " and b_kerdesek.kerdesid = b_sugo.kerdesid";
+
 			System.out.println(sql);
-			
+
 			System.out.println("---------------------------------------");
-			System.out.println("TEMAKOR: "+ temakor + " KERDES: "+ kerdes);
+			System.out.println("TEMAKOR: " + temakor + " KERDES: " + kerdes);
 			System.out.println("---------------------------------------");
-			
+
 			rs = stmt.executeQuery(sql);
 			rs.next();
-			System.out.println(rs.getString(1)+"\n A: "+rs.getString(2)+"\n B: "+rs.getString(3)+"\n C: "+rs.getString(4)+"\n D: "+rs.getString(5)+"\n Help1: "+rs.getString(6)+"\n Help2: "+ rs.getString(7));
+			System.out.println(rs.getString(1) + "\n A: " + rs.getString(2) + "\n B: " + rs.getString(3) + "\n C: "
+					+ rs.getString(4) + "\n D: " + rs.getString(5) + "\n Help1: " + rs.getString(6) + "\n Help2: "
+					+ rs.getString(7));
 			break;
-		
-		case("Masodikos"):
-			temakor = r.nextInt(7)+1;
-			
-			
+
+		case ("Masodikos"):
+			temakor = r.nextInt(7) + 1;
+			sql = "select kerdesid from b_kerdesek where temakorid = " + temakor;
+			System.out.println(sql);
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				kerdesek.add(rs.getString(1));
+			}
+
+			high = Integer.parseInt(kerdesek.get(kerdesek.size() - 1));
+			low = Integer.parseInt(kerdesek.get(0));
+
+			System.out.println(high + " || " + low);
+
+			kerdes = r.nextInt(high - low) + low;
+
+			sql = "select b_kerdesek.kerdes,b_lehetsegesvalaszok.valasza,b_lehetsegesvalaszok.valaszb,b_lehetsegesvalaszok.valaszc,b_lehetsegesvalaszok.valaszd,b_sugo.sugas,b_puska.loszer"
+					+ " from b_kerdesek,b_puska,b_lehetsegesvalaszok,b_helyesvalaszok,b_sugo"
+					+ " where b_kerdesek.kerdesid = " + kerdes + " and b_kerdesek.kerdesid = b_puska.kerdesid "
+					+ " and b_kerdesek.kerdesid = b_lehetsegesvalaszok.kerdesid"
+					+ " and b_kerdesek.kerdesid = b_helyesvalaszok.kerdesid"
+					+ " and b_kerdesek.kerdesid = b_sugo.kerdesid";
+
+			System.out.println(sql);
+
+			System.out.println("---------------------------------------");
+			System.out.println("TEMAKOR: " + temakor + " KERDES: " + kerdes);
+			System.out.println("---------------------------------------");
+
+			rs = stmt.executeQuery(sql);
+			rs.next();
+			System.out.println(rs.getString(1) + "\n A: " + rs.getString(2) + "\n B: " + rs.getString(3) + "\n C: "
+					+ rs.getString(4) + "\n D: " + rs.getString(5) + "\n Help1: " + rs.getString(6) + "\n Help2: "
+					+ rs.getString(7));
+
 			break;
-		
-		case("Harmadikos"):
-			temakor = r.nextInt(10)+1;
-			
-			
+
+		case ("Harmadikos"):
+			temakor = r.nextInt(10) + 1;
+			sql = "select kerdesid from b_kerdesek where temakorid = " + temakor;
+			System.out.println(sql);
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				kerdesek.add(rs.getString(1));
+			}
+
+			high = Integer.parseInt(kerdesek.get(kerdesek.size() - 1));
+			low = Integer.parseInt(kerdesek.get(0));
+
+			System.out.println(high + " || " + low);
+
+			kerdes = r.nextInt(high - low) + low;
+
+			sql = "select b_kerdesek.kerdes,b_lehetsegesvalaszok.valasza,b_lehetsegesvalaszok.valaszb,b_lehetsegesvalaszok.valaszc,b_lehetsegesvalaszok.valaszd,b_sugo.sugas,b_puska.loszer"
+					+ " from b_kerdesek,b_puska,b_lehetsegesvalaszok,b_helyesvalaszok,b_sugo"
+					+ " where b_kerdesek.kerdesid = " + kerdes + " and b_kerdesek.kerdesid = b_puska.kerdesid "
+					+ " and b_kerdesek.kerdesid = b_lehetsegesvalaszok.kerdesid"
+					+ " and b_kerdesek.kerdesid = b_helyesvalaszok.kerdesid"
+					+ " and b_kerdesek.kerdesid = b_sugo.kerdesid";
+
+			System.out.println(sql);
+
+			System.out.println("---------------------------------------");
+			System.out.println("TEMAKOR: " + temakor + " KERDES: " + kerdes);
+			System.out.println("---------------------------------------");
+
+			rs = stmt.executeQuery(sql);
+			rs.next();
+			System.out.println(rs.getString(1) + "\n A: " + rs.getString(2) + "\n B: " + rs.getString(3) + "\n C: "
+					+ rs.getString(4) + "\n D: " + rs.getString(5) + "\n Help1: " + rs.getString(6) + "\n Help2: "
+					+ rs.getString(7));
+
 			break;
-			
+
 		default:
-			
-			temakor = r.nextInt(10)+1;
+
+			temakor = r.nextInt(10) + 1;
+
+			sql = "select kerdesid from b_kerdesek where temakorid = " + temakor;
+			System.out.println(sql);
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				kerdesek.add(rs.getString(1));
+			}
+
+			high = Integer.parseInt(kerdesek.get(kerdesek.size() - 1));
+			low = Integer.parseInt(kerdesek.get(0));
+
+			System.out.println(high + " || " + low);
+
+			kerdes = r.nextInt(high - low) + low;
+
+			sql = "select b_kerdesek.kerdes,b_lehetsegesvalaszok.valasza,b_lehetsegesvalaszok.valaszb,b_lehetsegesvalaszok.valaszc,b_lehetsegesvalaszok.valaszd,b_sugo.sugas,b_puska.loszer"
+					+ " from b_kerdesek,b_puska,b_lehetsegesvalaszok,b_helyesvalaszok,b_sugo"
+					+ " where b_kerdesek.kerdesid = " + kerdes + " and b_kerdesek.kerdesid = b_puska.kerdesid "
+					+ " and b_kerdesek.kerdesid = b_lehetsegesvalaszok.kerdesid"
+					+ " and b_kerdesek.kerdesid = b_helyesvalaszok.kerdesid"
+					+ " and b_kerdesek.kerdesid = b_sugo.kerdesid";
+
+			System.out.println(sql);
+
+			System.out.println("---------------------------------------");
+			System.out.println("TEMAKOR: " + temakor + " KERDES: " + kerdes);
+			System.out.println("---------------------------------------");
+
+			rs = stmt.executeQuery(sql);
+			rs.next();
+			System.out.println(rs.getString(1) + "\n A: " + rs.getString(2) + "\n B: " + rs.getString(3) + "\n C: "
+					+ rs.getString(4) + "\n D: " + rs.getString(5) + "\n Help1: " + rs.getString(6) + "\n Help2: "
+					+ rs.getString(7));
+
 			break;
-		
+
 		}
 	}
 	
-	//TODO:get answer parameterben eleg lesz a betujel
 	
-	public void getAnswer() {
+	public void getQuestionByQuestionDifficulty(String difficulty) throws SQLException {
+		
+		//difficulty = szoba
+		Random r = new Random();
+		ResultSet rs;
+		int kerdes;
+		int kerdesid = 0;
+		
+		sql = "select count(kerdes) from b_kerdesek";
+		rs = stmt.executeQuery(sql);
+		rs.next();
+		int sumkerdes = Integer.parseInt(rs.getString(1));
+		
+		sql = "select count(szobanev) from b_szoba ";
+		rs = stmt.executeQuery(sql);
+		rs.next();
+		int szobak = Integer.parseInt(rs.getString(1));
+		
+		int lepeskoz = sumkerdes / szobak;	
+		//System.out.println(lepeskoz);
+		
+		sql ="select * from b_kerdesek " + 
+				"order by nehezseg";
+		
+		rs = stmt.executeQuery(sql);
+		
+		switch(difficulty) {
+		case("Elsos"):
+			//0 .... lepeskoz			
+			kerdes = r.nextInt(lepeskoz)+1;
+			for(int i = 0; i < 3*lepeskoz;i++) {
+				rs.next();
+				if(i == kerdes) {
+					kerdesid = Integer.parseInt(rs.getString(1)); //kerdesid
+				}
+			}
+			System.out.println(kerdes+".-ik kerdes, "+kerdesid+" id-s kerdes");
+			
+			sql = "select b_kerdesek.kerdes,b_lehetsegesvalaszok.valasza,b_lehetsegesvalaszok.valaszb,b_lehetsegesvalaszok.valaszc,b_lehetsegesvalaszok.valaszd,b_sugo.sugas,b_puska.loszer"
+					+ " from b_kerdesek,b_puska,b_lehetsegesvalaszok,b_helyesvalaszok,b_sugo"
+					+ " where b_kerdesek.kerdesid = " + kerdesid + " and b_kerdesek.kerdesid = b_puska.kerdesid "
+					+ " and b_kerdesek.kerdesid = b_lehetsegesvalaszok.kerdesid"
+					+ " and b_kerdesek.kerdesid = b_helyesvalaszok.kerdesid"
+					+ " and b_kerdesek.kerdesid = b_sugo.kerdesid";
+
+			System.out.println(sql);
+
+			System.out.println("---------------------------------------");
+			System.out.println(" KERDES: " + kerdesid);
+			System.out.println("---------------------------------------");
+
+			rs = stmt.executeQuery(sql);
+			rs.next();
+			System.out.println(rs.getString(1) + "\n A: " + rs.getString(2) + "\n B: " + rs.getString(3) + "\n C: "
+					+ rs.getString(4) + "\n D: " + rs.getString(5) + "\n Help1: " + rs.getString(6) + "\n Help2: "
+					+ rs.getString(7));
+		
+			break;
+		case("Masodikos"):
+			//lepeskoz+1 .... 2*lepeskoz
+			kerdes = r.nextInt(lepeskoz*2 - lepeskoz+1)+lepeskoz+1;
+			for(int i = 0; i < 3*lepeskoz;i++) {
+				rs.next();
+				if(i == kerdes) {
+					kerdesid = Integer.parseInt(rs.getString(1)); //kerdesid
+				}
+			}
+			System.out.println(kerdes+".-ik kerdes, "+kerdesid+" id-s kerdes");
+			
+			sql = "select b_kerdesek.kerdes,b_lehetsegesvalaszok.valasza,b_lehetsegesvalaszok.valaszb,b_lehetsegesvalaszok.valaszc,b_lehetsegesvalaszok.valaszd,b_sugo.sugas,b_puska.loszer"
+					+ " from b_kerdesek,b_puska,b_lehetsegesvalaszok,b_helyesvalaszok,b_sugo"
+					+ " where b_kerdesek.kerdesid = " + kerdesid + " and b_kerdesek.kerdesid = b_puska.kerdesid "
+					+ " and b_kerdesek.kerdesid = b_lehetsegesvalaszok.kerdesid"
+					+ " and b_kerdesek.kerdesid = b_helyesvalaszok.kerdesid"
+					+ " and b_kerdesek.kerdesid = b_sugo.kerdesid";
+
+			System.out.println(sql);
+
+			System.out.println("---------------------------------------");
+			System.out.println(" KERDES: " + kerdesid);
+			System.out.println("---------------------------------------");
+
+			rs = stmt.executeQuery(sql);
+			rs.next();
+			System.out.println(rs.getString(1) + "\n A: " + rs.getString(2) + "\n B: " + rs.getString(3) + "\n C: "
+					+ rs.getString(4) + "\n D: " + rs.getString(5) + "\n Help1: " + rs.getString(6) + "\n Help2: "
+					+ rs.getString(7));
+			
+			break;
+		case("Harmadikos"):
+			//2*lepeskoz+1 .... 3*lepeskoz 
+			kerdes = r.nextInt(lepeskoz*3 - (lepeskoz*2+1))+(lepeskoz*2+1);
+			for(int i = 0; i < 3*lepeskoz;i++) {
+				rs.next();
+				if(i == kerdes) {
+					kerdesid = Integer.parseInt(rs.getString(1)); //kerdesid
+				}
+			}
+			System.out.println(kerdes+".-ik kerdes, "+kerdesid+" id-s kerdes");
+			
+			sql = "select b_kerdesek.kerdes,b_lehetsegesvalaszok.valasza,b_lehetsegesvalaszok.valaszb,b_lehetsegesvalaszok.valaszc,b_lehetsegesvalaszok.valaszd,b_sugo.sugas,b_puska.loszer"
+					+ " from b_kerdesek,b_puska,b_lehetsegesvalaszok,b_helyesvalaszok,b_sugo"
+					+ " where b_kerdesek.kerdesid = " + kerdesid + " and b_kerdesek.kerdesid = b_puska.kerdesid "
+					+ " and b_kerdesek.kerdesid = b_lehetsegesvalaszok.kerdesid"
+					+ " and b_kerdesek.kerdesid = b_helyesvalaszok.kerdesid"
+					+ " and b_kerdesek.kerdesid = b_sugo.kerdesid";
+
+			System.out.println(sql);
+
+			System.out.println("---------------------------------------");
+			System.out.println(" KERDES: " + kerdesid);
+			System.out.println("---------------------------------------");
+
+			rs = stmt.executeQuery(sql);
+			rs.next();
+			System.out.println(rs.getString(1) + "\n A: " + rs.getString(2) + "\n B: " + rs.getString(3) + "\n C: "
+					+ rs.getString(4) + "\n D: " + rs.getString(5) + "\n Help1: " + rs.getString(6) + "\n Help2: "
+					+ rs.getString(7));
+			
+			
+
+			break;
+		
+		default:
+			
+			break;
+		
+		
+		
+		}
+		
+		
 		
 		
 	}
+
+	// TODO:get answer parameterben: jatekos neve, valasz betujele, kerdesid -> temakorid (kreditnyeremenyhez) 
+
+	public void getAnswer(String player, String valasz, String kerdesid) throws SQLException {
+
+		//update jatekos kredit, update szoba point, insert statistics -> trigger (update kerdes nehezseg)
+		ResultSet rs;
+		String helyesvalasz;
+		String szoba;
+		
+		sql ="select betujel from b_helyesvalaszok where kerdesid = " + kerdesid;
+		rs = stmt.executeQuery(sql);
+		rs.next();
+		helyesvalasz = rs.getString(1);
+		
+		sql="select szobanev from b_hallgato where nickname = " + player;
+		rs = stmt.executeQuery(sql);
+		rs.next();
+		szoba = rs.getString(1);
+		
+		
+		if(valasz.equals(helyesvalasz)) {
+
+			
+			sql ="insert into b_stats values('"+ player+"', '"+szoba +"', 'helyes', "+ kerdesid +")" ;
+			stmt.executeQuery(sql);
+		}
+		
+		else {		
+			
+			sql ="insert into b_stats values('"+ player+"', '"+ szoba +"', 'rossz', "+ kerdesid +")" ;
+			stmt.executeQuery(sql);
+		}
 	
-	
-	
-	
+		
+	}
 
 }
