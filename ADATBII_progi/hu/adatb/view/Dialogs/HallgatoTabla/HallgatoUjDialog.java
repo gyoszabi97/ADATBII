@@ -1,4 +1,4 @@
-package hu.adatb.view;
+package hu.adatb.view.Dialogs.HallgatoTabla;
 import javax.swing.*;
 
 import hu.adatb.dao.Adatbazis;
@@ -6,22 +6,25 @@ import hu.adatb.dao.Adatbazis;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
-public class UjHallgatoDialog extends JDialog implements ActionListener {
+public class HallgatoUjDialog extends JDialog implements ActionListener {
     private JTextField tf_nickname;
     private JTextField tf_szoba;
+    private JTextField tf_korosztaly;
 
     private JPanel panel_Panel;
     private JPanel panel_inputPanel;
     private JButton button_felviszGomb;
 
-    public UjHallgatoDialog(Frame szuloAblak) {
+    public HallgatoUjDialog(Frame szuloAblak) {
         super(szuloAblak, "Új hallgató felvétele");
 
         //GUI objektumok létrehozása
 
         this.tf_nickname = new JTextField();
         this.tf_szoba = new JTextField();
+        this.tf_korosztaly = new JTextField();
         this.button_felviszGomb = new JButton("Felvisz");
 
         //panelek és elrendezéseik létrehozása
@@ -36,8 +39,10 @@ public class UjHallgatoDialog extends JDialog implements ActionListener {
         //input mezők
         this.panel_inputPanel.add(new JLabel("Nickname"));
         this.panel_inputPanel.add(this.tf_nickname);
-        this.panel_inputPanel.add(new JLabel("Szoba"));
+        this.panel_inputPanel.add(new JLabel("Szobanév"));
         this.panel_inputPanel.add(this.tf_szoba);
+        this.panel_inputPanel.add(new JLabel("Korosztaly"));
+        this.panel_inputPanel.add(this.tf_korosztaly);
 
         //inputpanel a főpanelhez adása, középre
 
@@ -53,25 +58,25 @@ public class UjHallgatoDialog extends JDialog implements ActionListener {
         this.pack();
 
     }
-        public void elokeszit(){
+    public void elokeszit(){
 
         this.tf_nickname.setText("");
         this.tf_szoba.setText("");
-        }
+        this.tf_korosztaly.setText("");
+    }
 
 
 
-    
+
     public void actionPerformed(ActionEvent actionEvent) {
+        Adatbazis adatbazis = new Adatbazis();
+        adatbazis.connectToDatabase();
         if(actionEvent.getSource().equals(this.button_felviszGomb)){
             String nickname = this.tf_nickname.getText();
             String szoba = this.tf_szoba.getText();
+            String korosztaly = this.tf_korosztaly.getText();
 
-           /* Adatbazis db = new Adatbazis();
-            db.connectToDatabase();
-            db.hallgatotLekerdez(nickname); */
-
-          /* boolean sikerult = this.adatbazis.UjHallgato(nickname, szoba); */
+            //List<String> tabla = adatbazis.addRecord();
 
             this.dispose();
         }

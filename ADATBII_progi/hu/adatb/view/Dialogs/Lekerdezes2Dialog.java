@@ -1,4 +1,4 @@
-package hu.adatb.view;
+package hu.adatb.view.Dialogs;
 
 import hu.adatb.dao.Adatbazis;
 
